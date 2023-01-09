@@ -17,7 +17,35 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    // return Recipe.create({
+    //   //if we don't return then it's locally scoped/stuck inside here
+    //   title: 'Arepas',
+    //   level: 'Easy Peasy',
+    //   ingredients: [
+    //     'water',
+    //     'salt',
+    //     'corn flour',
+    //   ],
+    //   cuisine: 'Venezuelan',
+    //   dishType: 'breakfast',
+    //   image: "https://images.media-allrecipes.com/userphotos/720x405/2280918.jpg",
+    //   duration: 40,
+    //   creator: 'Daniela Gallardo'
+    // })
+
+    return Recipe.insertMany(data);
   })
+
+  .then(() => {
+    console.log("Rigatoni alla Genovese's duration was updated!")
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, { duration: 100 });
+  })
+
+  .then(()=> {
+    console.log("Carrot cake was removed")
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
